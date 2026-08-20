@@ -22,6 +22,7 @@ import { openClinicWhatsAppAlert, getClinicWhatsAppUrl } from '../services/email
 
 interface BookTokenSectionProps {
   preselectedService?: string;
+  initialMode?: 'chatbot' | 'form';
   onAppointmentCreated?: (appointment: Appointment) => void;
 }
 
@@ -32,9 +33,10 @@ const TIME_SLOTS = [
 
 export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
   preselectedService,
+  initialMode = 'chatbot',
   onAppointmentCreated,
 }) => {
-  const [bookingMode, setBookingMode] = useState<'chatbot' | 'form'>('chatbot');
+  const [bookingMode, setBookingMode] = useState<'chatbot' | 'form'>(initialMode);
   const [patientName, setPatientName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -44,13 +46,28 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
   const [doctor, setDoctor] = useState(DOCTORS[0].name);
   const [isExistingPatient, setIsExistingPatient] = useState<'Yes' | 'No'>('No');
   const [date, setDate] = useState(() => {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
   });
   const [time, setTime] = useState('10:15 AM');
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
   const [confirmedAppt, setConfirmedAppt] = useState<Appointment | null>(null);
+
+  // Synchronize when initialMode changes
+  React.useEffect(() => {
+    if (initialMode) {
+      setBookingMode(initialMode);
+    }
+  }, [initialMode]);
+
+  // Synchronize when preselectedService changes
+  React.useEffect(() => {
+    if (preselectedService) {
+      setService(preselectedService);
+    }
+  }, [preselectedService]);
 
   const handleQuickDate = (daysAhead: number) => {
     const d = new Date();

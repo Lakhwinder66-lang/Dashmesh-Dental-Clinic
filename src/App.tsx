@@ -17,14 +17,23 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [callSheetOpen, setCallSheetOpen] = useState(false);
   const [preselectedBookingService, setPreselectedBookingService] = useState<string | undefined>(undefined);
+  const [bookingInitialMode, setBookingInitialMode] = useState<'chatbot' | 'form'>('chatbot');
 
   const handleOpenBookingWithService = (serviceName: string) => {
     setPreselectedBookingService(serviceName);
+    setBookingInitialMode('form');
     setActiveTab('book');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenBooking = () => {
+    setBookingInitialMode('chatbot');
+    setActiveTab('book');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenQuickForm = () => {
+    setBookingInitialMode('form');
     setActiveTab('book');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -50,6 +59,7 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onOpenBooking={handleOpenBooking}
+        onOpenQuickForm={handleOpenQuickForm}
         onOpenCallSheet={() => setCallSheetOpen(true)}
       />
 
@@ -228,6 +238,7 @@ export default function App() {
         {activeTab === 'book' && (
           <BookTokenSection
             preselectedService={preselectedBookingService}
+            initialMode={bookingInitialMode}
             onAppointmentCreated={() => {}}
           />
         )}

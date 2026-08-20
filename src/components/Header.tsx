@@ -6,6 +6,7 @@ interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenBooking: () => void;
+  onOpenQuickForm?: () => void;
   onOpenCallSheet: () => void;
 }
 
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   onOpenBooking,
+  onOpenQuickForm,
   onOpenCallSheet,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -120,15 +122,15 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action Glass Buttons */}
           <div className="flex items-center gap-2">
-            <a
+            <button
               id="header-email-btn"
-              href="mailto:rinkuvirk54@gmail.com?subject=Appointment%20Inquiry%20%E2%80%93%20Dashmesh%20Dental%20Clinic"
-              className="ios-btn-glass text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl hidden lg:flex items-center gap-1.5 hover:text-rose-600 transition-colors"
-              title="Email rinkuvirk54@gmail.com"
+              onClick={onOpenQuickForm || onOpenBooking}
+              className="ios-btn-glass text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl hidden lg:flex items-center gap-1.5 hover:text-sky-600 transition-colors cursor-pointer"
+              title="Fast Pre-filled Appointment Booking Form"
             >
-              <Mail className="w-3.5 h-3.5 text-rose-500" />
-              <span>Email Us</span>
-            </a>
+              <Calendar className="w-3.5 h-3.5 text-sky-600" />
+              <span>Book Appointment (Quick Form)</span>
+            </button>
 
             <button
               id="header-book-btn"
