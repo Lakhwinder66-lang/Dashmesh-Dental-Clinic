@@ -1,6 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Sparkles, Send, Stethoscope, AlertTriangle, Phone, Calendar, Bot, User, RefreshCw, CheckCircle2 } from 'lucide-react';
+import {
+  Sparkles,
+  Send,
+  Stethoscope,
+  AlertTriangle,
+  Phone,
+  Calendar,
+  Bot,
+  User,
+  RefreshCw,
+  CheckCircle2,
+  MessageSquare,
+  HelpCircle,
+  Mail
+} from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
+import { InteractiveBookingChatbot } from './InteractiveBookingChatbot';
+import { Appointment } from '../types';
 
 interface Message {
   id: string;
@@ -12,6 +28,7 @@ interface Message {
 interface AiDentalAssistantProps {
   onOpenBooking: () => void;
   onOpenCallSheet: () => void;
+  onAppointmentCreated?: (appointment: Appointment) => void;
 }
 
 const PRESET_QUESTIONS = [
@@ -25,7 +42,9 @@ const PRESET_QUESTIONS = [
 export const AiDentalAssistant: React.FC<AiDentalAssistantProps> = ({
   onOpenBooking,
   onOpenCallSheet,
+  onAppointmentCreated,
 }) => {
+  const [activeTab, setActiveTab] = useState<'booking-chat' | 'symptom-triage'>('booking-chat');
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome-msg',
@@ -45,6 +64,13 @@ export const AiDentalAssistant: React.FC<AiDentalAssistantProps> = ({
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || inputText).trim();
     if (!query || loading) return;
+
+    // If patient asks to book, switch to booking chatbot
+    const lower = query.toLowerCase();
+    if (lower.includes('book') || lower.includes('appointment') || lower.includes('token') || lower.includes('schedule')) {
+      setActiveTab('booking-chat');
+      return;
+    }
 
     const userMessage: Message = {
       id: `user-${Date.now()}`,
@@ -95,207 +121,247 @@ export const AiDentalAssistant: React.FC<AiDentalAssistantProps> = ({
   return (
     <section className="space-y-6">
       {/* Title */}
-      <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold mb-2">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>AI Dental Triage & Symptom Evaluation</span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold mb-2">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>AI Dental Assistant & Booking Bot</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Dashmesh Clinic Interactive Assistant
+          </h2>
+          <p className="text-sm text-slate-500 mt-1 max-w-xl">
+            Book your appointment step-by-step or ask dental health, RCT, and implant questions 24/7.
+          </p>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-          AI Tooth Care Assistant
-        </h2>
-        <p className="text-sm text-slate-500 mt-1 max-w-xl">
-          Get instantaneous preliminary guidance, home care comfort protocols, and treatment advice directly from Dashmesh Dental Clinic's digital system.
-        </p>
+
+        {/* Tab switchers */}
+        <div className="inline-flex p-1 rounded-2xl bg-slate-200/80 border border-slate-300/70 self-start sm:self-auto shadow-inner">
+          <button
+            id="ai-tab-booking-btn"
+            onClick={() => setActiveTab('booking-chat')}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'booking-chat'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Bot className="w-3.5 h-3.5 text-sky-600" />
+            <span>Appointment Chatbot</span>
+          </button>
+          <button
+            id="ai-tab-triage-btn"
+            onClick={() => setActiveTab('symptom-triage')}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'symptom-triage'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Symptom Triage</span>
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        {/* Chat Window (8 cols) */}
-        <div className="lg:col-span-8">
-          <div className="ios-glass rounded-3xl border border-white/80 shadow-xl overflow-hidden flex flex-col h-[560px]">
-            
-            {/* Chat Header */}
-            <div className="p-4 bg-slate-900 text-white flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-2xl bg-sky-500 text-white flex items-center justify-center font-bold shadow-md shadow-sky-500/40">
-                  <Bot className="w-5 h-5" />
+      {activeTab === 'booking-chat' ? (
+        <InteractiveBookingChatbot
+          onAppointmentCreated={(appt) => {
+            if (onAppointmentCreated) onAppointmentCreated(appt);
+          }}
+        />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          {/* Chat Window (8 cols) */}
+          <div className="lg:col-span-8">
+            <div className="ios-glass rounded-3xl border border-white/80 shadow-xl overflow-hidden flex flex-col h-[560px]">
+              
+              {/* Chat Header */}
+              <div className="p-4 bg-slate-900 text-white flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-2xl bg-sky-500 text-white flex items-center justify-center font-bold shadow-md shadow-sky-500/40">
+                    <Bot className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-bold flex items-center gap-1.5">
+                      <span>Dashmesh AI Dental Assistant</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    </h3>
+                    <p className="text-[11px] text-slate-400">Online • Powered by Gemini AI</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xs sm:text-sm font-bold flex items-center gap-1.5">
-                    <span>Dashmesh AI Dental Assistant</span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  </h3>
-                  <p className="text-[11px] text-slate-400">Online • Powered by Gemini AI</p>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    id="reset-chat-history-btn"
+                    onClick={() => setMessages(messages.slice(0, 1))}
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                    title="Clear Chat"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  id="reset-chat-history-btn"
-                  onClick={() => setMessages(messages.slice(0, 1))}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-                  title="Clear Chat"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Messages Thread */}
-            <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50/50">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex items-start gap-2.5 max-w-[85%] ${
-                    msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
-                  }`}
-                >
+              {/* Messages Thread */}
+              <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+                {messages.map((msg) => (
                   <div
-                    className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
-                      msg.sender === 'user'
-                        ? 'bg-sky-600 text-white shadow-sm'
-                        : 'bg-slate-900 text-white shadow-sm'
+                    key={msg.id}
+                    className={`flex items-start gap-2.5 max-w-[85%] ${
+                      msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
                     }`}
                   >
-                    {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
-                  </div>
-
-                  <div className="space-y-1">
                     <div
-                      className={`p-3.5 rounded-2xl text-xs leading-relaxed ${
+                      className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
                         msg.sender === 'user'
-                          ? 'bg-sky-600 text-white rounded-tr-none shadow-md shadow-sky-600/10'
-                          : 'ios-glass bg-white text-slate-800 rounded-tl-none border border-slate-200/80 shadow-sm'
+                          ? 'bg-sky-600 text-white shadow-sm'
+                          : 'bg-slate-900 text-white shadow-sm'
                       }`}
                     >
-                      <div className="whitespace-pre-line">{msg.text}</div>
+                      {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                     </div>
-                    <span
-                      className={`text-[10px] text-slate-400 block px-1 ${
-                        msg.sender === 'user' ? 'text-right' : 'text-left'
-                      }`}
-                    >
-                      {msg.timestamp}
-                    </span>
+
+                    <div className="space-y-1">
+                      <div
+                        className={`p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                          msg.sender === 'user'
+                            ? 'bg-sky-600 text-white rounded-tr-none shadow-md shadow-sky-600/10'
+                            : 'ios-glass bg-white text-slate-800 rounded-tl-none border border-slate-200/80 shadow-xs'
+                        }`}
+                      >
+                        <p className="whitespace-pre-line font-sans">{msg.text}</p>
+                      </div>
+                      <span
+                        className={`text-[10px] text-slate-400 block px-1 ${
+                          msg.sender === 'user' ? 'text-right' : 'text-left'
+                        }`}
+                      >
+                        {msg.timestamp}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
-              {loading && (
-                <div className="flex items-center gap-2 text-xs text-slate-500 italic p-3 bg-white/80 rounded-2xl border border-slate-200 w-fit">
-                  <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce"></div>
-                  <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce [animation-delay:0.2s]"></div>
-                  <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce [animation-delay:0.4s]"></div>
-                  <span>Analyzing dental symptoms...</span>
-                </div>
-              )}
-              <div ref={chatBottomRef} />
-            </div>
+                {loading && (
+                  <div className="flex items-center gap-2 text-xs text-slate-500 italic p-3 bg-white/80 rounded-2xl border border-slate-200 w-fit">
+                    <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-sky-500 animate-bounce [animation-delay:0.4s]"></div>
+                    <span>Consulting Dental AI Model...</span>
+                  </div>
+                )}
+                <div ref={chatBottomRef} />
+              </div>
 
-            {/* Suggested Question Chips */}
-            <div className="px-4 py-2 bg-slate-100/80 border-t border-slate-200 overflow-x-auto flex items-center gap-1.5 text-xs">
-              <span className="text-[11px] font-bold text-slate-400 shrink-0">Quick Ask:</span>
-              {PRESET_QUESTIONS.map((q, idx) => (
-                <button
-                  key={idx}
-                  id={`preset-q-${idx}`}
-                  onClick={() => handleSendMessage(q)}
-                  className="px-2.5 py-1 rounded-full bg-white hover:bg-slate-200/90 text-slate-700 font-medium text-[11px] shrink-0 border border-slate-300/70 transition-colors shadow-2xs"
+              {/* Preset Query Chips */}
+              <div className="p-2.5 bg-slate-100/90 border-t border-slate-200/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 shrink-0 px-1">
+                  Quick:
+                </span>
+                {PRESET_QUESTIONS.map((q, idx) => (
+                  <button
+                    key={idx}
+                    id={`preset-q-${idx}`}
+                    onClick={() => handleSendMessage(q)}
+                    className="px-2.5 py-1 rounded-full bg-white hover:bg-slate-200/90 text-slate-700 font-medium text-[11px] shrink-0 border border-slate-300/70 transition-colors shadow-2xs cursor-pointer"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+
+              {/* Input Bar */}
+              <div className="p-3 bg-white border-t border-slate-200">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }}
+                  className="flex items-center gap-2"
                 >
-                  {q}
-                </button>
-              ))}
-            </div>
+                  <input
+                    id="ai-chat-input-text"
+                    type="text"
+                    placeholder="Type your toothache, bleeding, or treatment query..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    className="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30"
+                  />
+                  <button
+                    id="ai-chat-send-btn"
+                    type="submit"
+                    disabled={loading || !inputText.trim()}
+                    className="ios-btn-primary text-white p-2.5 rounded-xl cursor-pointer disabled:opacity-40"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </form>
+              </div>
 
-            {/* Input Bar */}
-            <div className="p-3 bg-white border-t border-slate-200">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage();
-                }}
-                className="flex items-center gap-2"
-              >
-                <input
-                  id="ai-chat-input-text"
-                  type="text"
-                  placeholder="Type your toothache, bleeding, or treatment query..."
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  className="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30"
-                />
+            </div>
+          </div>
+
+          {/* Right / Emergency Disclaimer & Quick Actions (4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
+            
+            {/* Direct Actions Card */}
+            <div className="ios-glass rounded-3xl p-6 border border-white/80 shadow-md space-y-4">
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                Need In-Person Dental Examination?
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                AI advice cannot substitute for an intraoral inspection and digital RVG dental X-ray by Dr. Gurmeet Singh.
+              </p>
+
+              <div className="space-y-2 pt-2">
                 <button
-                  id="ai-chat-send-btn"
-                  type="submit"
-                  disabled={loading || !inputText.trim()}
-                  className="ios-btn-primary text-white p-2.5 rounded-xl cursor-pointer disabled:opacity-40"
+                  id="ai-page-book-btn"
+                  onClick={() => setActiveTab('booking-chat')}
+                  className="w-full ios-btn-primary text-white text-xs font-bold py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-sky-500/20"
                 >
-                  <Send className="w-4 h-4" />
+                  <Calendar className="w-4 h-4" />
+                  <span>Start Step-by-Step Booking</span>
                 </button>
-              </form>
+
+                <button
+                  id="ai-page-call-btn"
+                  onClick={onOpenCallSheet}
+                  className="w-full ios-btn-glass text-slate-800 text-xs font-bold py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Phone className="w-4 h-4 text-emerald-600" />
+                  <span>Call 084300 33333</span>
+                </button>
+              </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* Right / Emergency Disclaimer & Quick Actions (4 cols) */}
-        <div className="lg:col-span-4 space-y-4">
-          
-          {/* Direct Actions Card */}
-          <div className="ios-glass rounded-3xl p-6 border border-white/80 shadow-md space-y-4">
-            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-              Need In-Person Dental Examination?
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              AI advice cannot substitute for an intraoral inspection and digital RVG dental X-ray by Dr. Gurmeet Singh.
-            </p>
-
-            <div className="space-y-2 pt-2">
-              <button
-                id="ai-page-book-btn"
-                onClick={onOpenBooking}
-                className="w-full ios-btn-primary text-white text-xs font-bold py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-sky-500/20"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Book Priority Token</span>
-              </button>
-
-              <button
-                id="ai-page-call-btn"
-                onClick={onOpenCallSheet}
-                className="w-full ios-btn-glass text-slate-800 text-xs font-bold py-3 rounded-xl flex items-center justify-center gap-2"
-              >
-                <Phone className="w-4 h-4 text-emerald-600" />
-                <span>Call 084300 33333</span>
-              </button>
+            {/* Emergency Triage Red Flags */}
+            <div className="p-5 rounded-3xl bg-rose-50 border border-rose-200/80 text-xs text-rose-950 space-y-2">
+              <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+                <span>Immediate Dental Emergency Flags</span>
+              </div>
+              <ul className="space-y-1 text-[11px] text-rose-800 list-disc list-inside">
+                <li>Visible facial swelling near jaw or eye</li>
+                <li>Continuous bleeding after dental trauma</li>
+                <li>Completely knocked-out tooth (save in milk & visit within 30 mins)</li>
+                <li>Difficulty swallowing or opening jaw</li>
+              </ul>
             </div>
-          </div>
 
-          {/* Emergency Triage Red Flags */}
-          <div className="p-5 rounded-3xl bg-rose-50 border border-rose-200/80 text-xs text-rose-950 space-y-2">
-            <div className="flex items-center gap-1.5 font-bold text-rose-900">
-              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
-              <span>Immediate Dental Emergency Flags</span>
+            {/* Clinic Address Reminder */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600">
+              <span className="font-bold text-slate-800 block">Dashmesh Dental Clinic</span>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Jain Nagari Road, Near Main Water Works, Abohar (PB)
+              </p>
             </div>
-            <ul className="space-y-1 text-[11px] text-rose-800 list-disc list-inside">
-              <li>Visible facial swelling near jaw or eye</li>
-              <li>Continuous bleeding after dental trauma</li>
-              <li>Completely knocked-out tooth (save in milk & visit within 30 mins)</li>
-              <li>Difficulty swallowing or opening jaw</li>
-            </ul>
-          </div>
 
-          {/* Clinic Address Reminder */}
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600">
-            <span className="font-bold text-slate-800 block">Dashmesh Dental Clinic</span>
-            <p className="text-[11px] text-slate-500 mt-0.5">
-              Jain Nagari Road, Near Main Water Works, Abohar (PB)
-            </p>
           </div>
 
         </div>
-
-      </div>
+      )}
     </section>
   );
 };

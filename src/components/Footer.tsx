@@ -111,15 +111,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="flex items-center gap-2 hover:text-emerald-700 transition-colors font-mono font-bold"
               >
                 <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                <span>084300 33333</span>
-              </button>
-              <button
-                id="footer-call-2"
-                onClick={onOpenCallSheet}
-                className="flex items-center gap-2 hover:text-sky-700 transition-colors font-mono font-bold"
-              >
-                <Phone className="w-3.5 h-3.5 text-sky-600" />
-                <span>94179-28951</span>
+                <span>084300 33333 (Primary Line)</span>
               </button>
               <button
                 id="footer-call-3"
@@ -127,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="flex items-center gap-2 hover:text-slate-900 transition-colors font-mono font-bold"
               >
                 <Phone className="w-3.5 h-3.5 text-slate-500" />
-                <span>9779505055</span>
+                <span>9779505055 (OPD Desk)</span>
               </button>
             </div>
             <div className="pt-1 text-slate-500">

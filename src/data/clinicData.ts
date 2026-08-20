@@ -1,4 +1,8 @@
 import { DentalService, Review, Doctor } from '../types';
+import clinicExteriorImg from '../assets/images/dashmesh_clinic_exterior_1787224642517.jpg';
+import clinicInteriorImg from '../assets/images/dashmesh_clinic_interior_1787224660959.jpg';
+import waitingLoungeImg from '../assets/images/dashmesh_waiting_lounge_1787224680804.jpg';
+import entranceSignImg from '../assets/images/dashmesh_entrance_sign_1787224701969.jpg';
 
 export const CLINIC_INFO = {
   name: 'Dashmesh Dental Clinic',
@@ -15,8 +19,9 @@ export const CLINIC_INFO = {
     { label: 'Dr. Direct / Emergency', number: '94179-28951', href: 'tel:9417928951' },
     { label: 'Clinic Desk 2', number: '9779505055', href: 'tel:9779505055' }
   ],
-  whatsapp: '919417928951',
-  email: 'dashmesh.dental.abohar@gmail.com',
+  whatsapp: '919779505055',
+  email: 'rinkuvirk54@gmail.com',
+  notificationEmail: 'rinkuvirk54@gmail.com',
   workingHours: [
     { day: 'Monday – Saturday', hours: '9:00 AM – 2:00 PM & 4:30 PM – 8:30 PM', status: 'Open' },
     { day: 'Sunday', hours: '9:30 AM – 2:00 PM (Emergency & By Appointment)', status: 'Morning Only' }
@@ -44,13 +49,6 @@ export const DOCTORS: Doctor[] = [
     role: 'Chief Dental Surgeon & Implantologist',
     experience: '16+ Years Experience',
     availability: 'Daily 9:00 AM – 8:00 PM'
-  },
-  {
-    name: 'Dr. Simranjeet Kaur',
-    qualification: 'BDS, Fellowship in Cosmetic Dentistry',
-    role: 'Aesthetic Dentist & Child Specialist',
-    experience: '9+ Years Experience',
-    availability: 'Mon – Sat 10:00 AM – 6:00 PM'
   }
 ];
 
@@ -297,27 +295,27 @@ export const INITIAL_REVIEWS: Review[] = [
 
 export const GALLERY_ITEMS = [
   {
-    title: 'Modern Digital Operatory',
+    title: 'Clinic Front & Main Entrance',
     category: 'Clinic',
-    desc: 'Fully motorized European dental chair with overhead shadowless LED and intraoral camera.',
-    imageUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80'
+    desc: 'Main Jain Nagari Road storefront with illuminated Punjabi & English signboard and patient parking.',
+    imageUrl: clinicExteriorImg
   },
   {
-    title: 'Class-B Autoclave Sterilization',
+    title: 'Reception Desk & Glass Operatory',
+    category: 'Clinic',
+    desc: 'Spacious reception with glass cubicle dental operatory and advanced treatment chair.',
+    imageUrl: clinicInteriorImg
+  },
+  {
+    title: 'Patient Waiting Lounge',
     category: 'Hygiene',
-    desc: 'Strict hospital-grade sterilization with individual sealed instrument pouches.',
-    imageUrl: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80'
+    desc: 'Comfortable waiting area with acrylic tooth emblem wall plaque and sanitized seating.',
+    imageUrl: waitingLoungeImg
   },
   {
-    title: 'Digital RVG Dental X-Ray',
+    title: 'Dashmesh Dental Signboard',
     category: 'Equipment',
-    desc: 'Ultra-low radiation instant high-resolution sensor for pinpoint cavity & nerve diagnosis.',
-    imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    title: 'Smile Makeover & Crown Restoration',
-    category: 'Results',
-    desc: 'Natural translucent aesthetics with German Zirconia multi-unit crowns.',
-    imageUrl: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'
+    desc: 'Official clinic facade board with direct contact M. 97795 05055 and clean glass entrance.',
+    imageUrl: entranceSignImg
   }
 ];

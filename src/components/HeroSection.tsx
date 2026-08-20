@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Calendar, MapPin, Star, Sparkles, Shield, Clock, ArrowRight, Stethoscope, Award } from 'lucide-react';
+import { Phone, Calendar, MapPin, Star, Sparkles, Shield, Clock, ArrowRight, Stethoscope, Award, Mail } from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
 
 interface HeroSectionProps {
@@ -84,6 +84,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <span>Book Appointment / Token</span>
                   <ArrowRight className="w-4 h-4 opacity-80" />
                 </button>
+
+                <a
+                  id="hero-email-btn"
+                  href="mailto:rinkuvirk54@gmail.com?subject=Inquiry%20%E2%80%93%20Dashmesh%20Dental%20Clinic&body=Hello%20Dashmesh%20Dental%20Clinic,%0A%0AI%20would%20like%20to%20inquire%20about%20dental%20treatments%20and%20consultations."
+                  className="ios-btn-glass text-slate-800 font-semibold px-4 py-3.5 rounded-2xl flex items-center gap-2 text-sm bg-white/90 border border-slate-300 hover:bg-slate-50 transition-all shadow-sm"
+                  title="Email rinkuvirk54@gmail.com"
+                >
+                  <Mail className="w-4 h-4 text-rose-500" />
+                  <span className="font-mono text-xs sm:text-sm">rinkuvirk54@gmail.com</span>
+                </a>
 
                 <button
                   id="hero-opd-slip-btn"
@@ -175,22 +185,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <span>Start Instant AI Dental Triage</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
-              </div>
-
-              {/* Key Amenities row */}
-              <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                <div className="ios-glass-subtle p-2.5 rounded-xl border border-white/60">
-                  <Shield className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
-                  <span className="font-semibold text-slate-700 text-[11px]">100% Sterile</span>
-                </div>
-                <div className="ios-glass-subtle p-2.5 rounded-xl border border-white/60">
-                  <Clock className="w-4 h-4 text-sky-600 mx-auto mb-1" />
-                  <span className="font-semibold text-slate-700 text-[11px]">1-Sitting RCT</span>
-                </div>
-                <div className="ios-glass-subtle p-2.5 rounded-xl border border-white/60">
-                  <Award className="w-4 h-4 text-indigo-600 mx-auto mb-1" />
-                  <span className="font-semibold text-slate-700 text-[11px]">Digital X-Ray</span>
-                </div>
               </div>
 
             </div>

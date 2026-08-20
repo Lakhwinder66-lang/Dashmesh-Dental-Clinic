@@ -28,6 +28,7 @@ export interface Appointment {
   opdNo: string;
   patientName: string;
   phone: string;
+  email?: string;
   age: number;
   gender: string;
   service: string;
@@ -36,6 +37,7 @@ export interface Appointment {
   time: string;
   tokenNo: number;
   status: 'Confirmed' | 'Completed' | 'Pending';
+  existingPatient?: string;
   notes?: string;
   createdAt: string;
 }

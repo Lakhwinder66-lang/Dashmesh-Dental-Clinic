@@ -69,16 +69,16 @@ export default function App() {
               setActiveTab={setActiveTab}
             />
 
-            {/* Doctors & Specialists Banner */}
+            {/* Chief Dental Surgeon Banner */}
             <section className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold mb-2">
                     <Stethoscope className="w-3.5 h-3.5" />
-                    <span>Experienced Dental Surgeons</span>
+                    <span>Chief Dental Surgeon</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                    Meet Our Dental Doctors
+                    Lead Surgeon & Specialist
                   </h2>
                 </div>
                 <p className="text-xs text-slate-500 max-w-xs">
@@ -86,107 +86,62 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6">
                 {DOCTORS.map((doc, idx) => (
                   <div
                     key={idx}
                     id={`doctor-card-${idx}`}
-                    className="ios-glass rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md space-y-4 flex flex-col justify-between"
+                    className="ios-glass rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md space-y-4 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
                   >
-                    <div className="space-y-3">
+                    <div className="space-y-3 flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-700 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-sky-600/30">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-700 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-sky-600/30">
                             {doc.name.split(' ')[1]?.charAt(0) || 'D'}
                           </div>
                           <div>
-                            <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                            <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                               {doc.name}
                             </h3>
-                            <p className="text-xs font-semibold text-sky-700">
+                            <p className="text-xs sm:text-sm font-semibold text-sky-700">
                               {doc.qualification}
                             </p>
                           </div>
                         </div>
 
-                        <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+                        <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
                           {doc.experience}
                         </span>
                       </div>
 
-                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
-                        <p className="font-semibold text-slate-800">{doc.role}</p>
-                        <p className="text-[11px] text-slate-500">Availability: {doc.availability}</p>
+                      <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                          <span className="font-semibold text-slate-800 block">{doc.role}</span>
+                          <span className="text-[11px] text-slate-500">Dashmesh Dental Clinic, Abohar</span>
+                        </div>
+                        <span className="text-xs font-medium text-slate-700 bg-white px-3 py-1 rounded-lg border border-slate-200 w-fit">
+                          Availability: {doc.availability}
+                        </span>
                       </div>
                     </div>
 
-                    <div className="pt-2 flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row md:flex-col gap-2 min-w-[200px]">
                       <button
                         id={`book-with-doc-${idx}`}
                         onClick={handleOpenBooking}
-                        className="flex-1 ios-btn-primary text-white text-xs font-semibold py-2.5 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="ios-btn-primary text-white text-xs font-semibold py-3 px-5 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-sky-500/20"
                       >
-                        <Calendar className="w-3.5 h-3.5" />
+                        <Calendar className="w-4 h-4" />
                         <span>Book Consultation</span>
                       </button>
 
                       <button
                         id={`call-doc-${idx}`}
                         onClick={() => setCallSheetOpen(true)}
-                        className="ios-btn-glass text-slate-800 text-xs font-semibold py-2.5 px-3.5 rounded-xl flex items-center gap-1"
+                        className="ios-btn-glass text-slate-800 text-xs font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5"
                       >
                         <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Call</span>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Quick Services Preview */}
-            <section className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Key Dental Treatments
-                  </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Advanced painless dentistry at transparent standardized rates in Abohar
-                  </p>
-                </div>
-                <button
-                  id="overview-see-all-services"
-                  onClick={() => setActiveTab('services')}
-                  className="text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1"
-                >
-                  <span>View All Services</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {SERVICES.slice(0, 4).map((s) => (
-                  <div
-                    key={s.id}
-                    className="ios-glass rounded-2xl p-5 border border-white/70 shadow-sm space-y-3 flex flex-col justify-between"
-                  >
-                    <div className="space-y-1.5">
-                      <span className="text-[10px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded uppercase">
-                        {s.category}
-                      </span>
-                      <h3 className="text-sm font-bold text-slate-900">{s.name}</h3>
-                      <p className="text-xs text-slate-500 line-clamp-2">{s.description}</p>
-                    </div>
-
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span className="font-bold text-slate-900">{s.priceRange}</span>
-                      <button
-                        id={`overview-book-${s.id}`}
-                        onClick={() => handleOpenBookingWithService(s.name)}
-                        className="text-sky-600 font-bold hover:underline"
-                      >
-                        Book →
+                        <span>Call Doctor</span>
                       </button>
                     </div>
                   </div>

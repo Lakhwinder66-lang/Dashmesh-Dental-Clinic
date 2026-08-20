@@ -62,7 +62,7 @@ export const MapAndDirections: React.FC<MapAndDirectionsProps> = ({
               <span className="font-bold text-slate-800 block text-[11px] uppercase tracking-wider">
                 Direct Contact Helplines:
               </span>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <a
                   id="map-call-primary"
                   href="tel:08430033333"
@@ -72,19 +72,7 @@ export const MapAndDirections: React.FC<MapAndDirectionsProps> = ({
                     <Phone className="w-3.5 h-3.5 text-emerald-600" />
                     <span>084300 33333</span>
                   </div>
-                  <span className="text-[10px] text-slate-400">Reception Desk</span>
-                </a>
-
-                <a
-                  id="map-call-doctor"
-                  href="tel:9417928951"
-                  className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-between font-semibold text-slate-800 transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-sky-600" />
-                    <span>94179-28951</span>
-                  </div>
-                  <span className="text-[10px] text-slate-400">Dr. Gurmeet Singh</span>
+                  <span className="text-[10px] text-slate-400">Reception</span>
                 </a>
 
                 <a
@@ -162,54 +150,18 @@ export const MapAndDirections: React.FC<MapAndDirectionsProps> = ({
               <span className="text-slate-400 font-mono text-[11px]">Abohar, PB</span>
             </div>
 
-            {/* Styled Map Graphic Canvas with Landmark Pins */}
-            <div className="relative h-72 sm:h-80 bg-slate-200 overflow-hidden flex items-center justify-center p-6">
-              
-              {/* Grid Roads pattern representation */}
-              <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-              
-              {/* Road lines simulation */}
-              <div className="absolute w-full h-8 bg-slate-300/80 -rotate-12 top-1/3 left-0 shadow-inner flex items-center justify-center">
-                <span className="text-[10px] font-bold text-slate-500 tracking-wider">
-                  MAIN JAIN NAGAR ROAD
-                </span>
-              </div>
-              <div className="absolute h-full w-8 bg-slate-300/80 rotate-12 top-0 left-1/3 shadow-inner flex items-center justify-center">
-                <span className="text-[9px] font-bold text-slate-500 rotate-90 tracking-wider">
-                  WATER WORKS ROAD
-                </span>
-              </div>
-
-              {/* Water Works Landmark Tag */}
-              <div className="absolute top-12 left-10 p-2 rounded-xl bg-blue-50/90 border border-blue-200 text-[10px] text-blue-900 shadow-md flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span className="font-bold">Abohar Main Water Works</span>
-              </div>
-
-              {/* Dashmesh Dental Clinic Main Pin */}
-              <div className="relative z-10 p-4 rounded-2xl bg-white/95 backdrop-blur-md border-2 border-sky-500 shadow-2xl text-center space-y-1.5 animate-bounce-subtle max-w-xs">
-                <div className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center mx-auto shadow-md shadow-sky-600/40">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-extrabold text-slate-900">
-                  Dashmesh Dental Clinic
-                </h4>
-                <p className="text-[11px] text-slate-600">
-                  Main Jain Nagari Road, Abohar (PB)
-                </p>
-                <div className="pt-1 flex items-center justify-center gap-2">
-                  <a
-                    id="map-pin-directions-btn"
-                    href={CLINIC_INFO.mapCoordinates.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-white bg-sky-600 hover:bg-sky-700 px-3 py-1 rounded-lg"
-                  >
-                    Start Navigation
-                  </a>
-                </div>
-              </div>
-
+            {/* Real Interactive Google Maps Iframe */}
+            <div className="relative h-80 sm:h-96 w-full bg-slate-100 overflow-hidden">
+              <iframe
+                title="Dashmesh Dental Clinic Map"
+                src="https://maps.google.com/maps?q=Dashmesh+Dental+Clinic+Jain+Nagari+Road+Abohar+Punjab+152116&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              ></iframe>
             </div>
 
             {/* Map Card Footer with Quick Directions */}

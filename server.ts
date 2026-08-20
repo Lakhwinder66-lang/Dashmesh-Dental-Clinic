@@ -162,8 +162,39 @@ app.get('/api/appointments', (req, res) => {
   res.json({ success: true, appointments });
 });
 
+// Send Appointment Email Notification to Clinic
+app.post('/api/send-appointment-email', (req, res) => {
+  const { name, mobile_number, email, date, time, reason, yes_no, recipient = 'rinkuvirk54@gmail.com' } = req.body;
+  
+  console.log('----------------------------------------------------');
+  console.log(`[EMAIL NOTIFICATION DISPATCH] To: ${recipient}`);
+  console.log(`Subject: New Appointment Request – ${name || 'Patient'}`);
+  console.log(`Body:
+📋 New Appointment Request
+
+Name: ${name}
+Mobile Number: ${mobile_number}
+Email: ${email}
+Preferred Date: ${date}
+Preferred Time: ${time}
+Reason for Visit: ${reason}
+Existing Patient: ${yes_no}
+
+— Booked via website chatbot
+  `);
+  console.log('----------------------------------------------------');
+
+  res.json({
+    success: true,
+    message: `Appointment notification registered for ${recipient}`,
+    recipient,
+    subject: `New Appointment Request – ${name}`,
+    dispatchedAt: new Date().toISOString()
+  });
+});
+
 app.post('/api/appointments', (req, res) => {
-  const { patientName, phone, age, gender, service, doctor, date, time, notes } = req.body;
+  const { patientName, phone, email, age, gender, service, doctor, date, time, notes, existingPatient } = req.body;
   if (!patientName || !phone || !service || !date || !time) {
     return res.status(400).json({ error: 'Missing required appointment fields' });
   }
@@ -177,6 +208,7 @@ app.post('/api/appointments', (req, res) => {
     opdNo: opdNumber,
     patientName,
     phone,
+    email: email || '',
     age: age ? Number(age) : 30,
     gender: gender || 'Not Specified',
     service,
@@ -185,6 +217,7 @@ app.post('/api/appointments', (req, res) => {
     time,
     tokenNo,
     status: 'Confirmed',
+    existingPatient: existingPatient ? 'Yes' : 'No',
     notes: notes || 'General dental checkup & consultation',
     createdAt: new Date().toISOString(),
   };

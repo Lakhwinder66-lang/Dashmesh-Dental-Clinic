@@ -70,12 +70,6 @@ export const ClinicGallery: React.FC = () => {
                   {item.category}
                 </span>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                <span className="text-white text-xs font-semibold flex items-center gap-1">
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>Enlarge Photo</span>
-                </span>
-              </div>
             </div>
 
             {/* Description */}
