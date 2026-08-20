@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashmesh Dental Clinic | Online Appointment Booking</title>
+  
+  <!-- Tailwind CSS CDN for modern responsive UI styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- 
+  ================================================================================
+  📧 EMAILJS OFFICIAL CDN SCRIPT
+  ================================================================================
+  -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- TOP CLINIC HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center text-white font-black text-xl shadow-md shadow-sky-600/20">
+          🦷
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Dashmesh Dental Clinic</h1>
+          <p class="text-xs text-slate-500 hidden sm:block">Jain Nagari Road, Near Water Works, Abohar, Punjab 152116</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="tel:+918430033333" class="hidden md:inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 transition">
+          📞 <span>+91 8430033333</span>
+        </a>
+        <a href="https://wa.me/918430033333?text=Hello%20Dashmesh%20Dental%20Clinic,%20I%20would%20like%20to%20inquire%20about%20dental%20treatments." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+          💬 <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO & BOOKING SECTION -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT: CLINIC OVERVIEW & TRUST BADGES -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-800 text-xs font-bold">
+          ✨ <span>Instant Online OPD & Confirmation</span>
+        </div>
+        
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Gentle, Expert Dental Care in Abohar
+        </h2>
+        
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Book your consultation with our experienced dental surgeons. When you submit your request, notifications are automatically dispatched to the doctor's WhatsApp and clinic email for priority scheduling.
+        </p>
+
+        <!-- CLINIC BADGES -->
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <div class="p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+            <span class="text-lg">👨‍⚕️</span>
+            <h4 class="text-xs font-bold text-slate-900 mt-1">Dr. Gurpreet Singh</h4>
+            <p class="text-[11px] text-slate-500">BDS, MDS • Senior Dental Surgeon</p>
+          </div>
+          <div class="p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+            <span class="text-lg">⚡</span>
+            <h4 class="text-xs font-bold text-slate-900 mt-1">Instant Alert</h4>
+            <p class="text-[11px] text-slate-500">Auto WhatsApp & Email Dispatch</p>
+          </div>
+          <div class="p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+            <span class="text-lg">🏥</span>
+            <h4 class="text-xs font-bold text-slate-900 mt-1">Modern Equipment</h4>
+            <p class="text-[11px] text-slate-500">Digital RVG X-Ray & Laser Tech</p>
+          </div>
+          <div class="p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+            <span class="text-lg">⏰</span>
+            <h4 class="text-xs font-bold text-slate-900 mt-1">Daily Timings</h4>
+            <p class="text-[11px] text-slate-500">9:00 AM – 2:00 PM & 4:30 – 8:30 PM</p>
+          </div>
+        </div>
+
+        <!-- DIRECT CONTACT INFO -->
+        <div class="p-4 bg-sky-50/70 rounded-2xl border border-sky-100 text-xs space-y-2 text-slate-700">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sky-900">Clinic Email:</span>
+            <a href="mailto:rinkuvirk54@gmail.com" class="text-sky-700 font-semibold underline">rinkuvirk54@gmail.com</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sky-900">WhatsApp Alert Line:</span>
+            <a href="https://wa.me/918430033333" class="text-sky-700 font-semibold underline">+91 8430033333</a>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="font-bold text-sky-900 shrink-0">Location:</span>
+            <span>Jain Nagari Road, Near Main Water Works, Abohar (PB)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: APPOINTMENT BOOKING FORM -->
+      <div class="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm relative">
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-slate-900">Book Your Dental Appointment</h3>
+          <p class="text-xs text-slate-500 mt-1">Fill in the details below to receive your instant token and alert the clinic team.</p>
+        </div>
+
+        <!-- NOTIFICATION BANNER -->
+        <div id="statusBanner" class="hidden mb-5 p-4 rounded-xl text-xs font-medium"></div>
+
+        <form id="dentalBookingForm" class="space-y-4" onsubmit="handleFormSubmit(event)">
+          
+          <!-- PATIENT NAME -->
+          <div>
+            <label for="patientName" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Patient Full Name *
+            </label>
+            <input
+              type="text"
+              id="patientName"
+              name="patientName"
+              required
+              placeholder="e.g., Lakhwinder Singh"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+            />
+          </div>
+
+          <!-- PHONE NUMBER & EMAIL -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="patientPhone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Phone Number (WhatsApp) *
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-semibold">+91</span>
+                <input
+                  type="tel"
+                  id="patientPhone"
+                  name="patientPhone"
+                  required
+                  pattern="[0-9]{10}"
+                  placeholder="9876543210"
+                  class="w-full pl-12 pr-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="patientEmail" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Patient Email (Optional)
+              </label>
+              <input
+                type="email"
+                id="patientEmail"
+                name="patientEmail"
+                placeholder="you@gmail.com"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+              />
+            </div>
+          </div>
+
+          <!-- DATE & TIME SLOT -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="appointmentDate" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Preferred Date *
+              </label>
+              <input
+                type="date"
+                id="appointmentDate"
+                name="appointmentDate"
+                required
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+              />
+            </div>
+
+            <div>
+              <label for="appointmentTime" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Preferred Time Slot *
+              </label>
+              <select
+                id="appointmentTime"
+                name="appointmentTime"
+                required
+                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+              >
+                <option value="10:00 AM">10:00 AM (Morning OPD)</option>
+                <option value="11:00 AM">11:00 AM (Morning OPD)</option>
+                <option value="12:00 PM">12:00 PM (Noon OPD)</option>
+                <option value="01:00 PM">01:00 PM (Noon OPD)</option>
+                <option value="05:00 PM">05:00 PM (Evening OPD)</option>
+                <option value="06:00 PM">06:00 PM (Evening OPD)</option>
+                <option value="07:00 PM">07:00 PM (Evening OPD)</option>
+                <option value="08:00 PM">08:00 PM (Late Evening)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- DOCTOR SELECTION -->
+          <div>
+            <label for="doctorSelect" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Select Doctor / Specialist *
+            </label>
+            <select
+              id="doctorSelect"
+              name="doctorSelect"
+              required
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+            >
+              <option value="Dr. Gurpreet Singh (BDS, MDS - Endodontist & Surgeon)">Dr. Gurpreet Singh (BDS, MDS - Dental Specialist)</option>
+              <option value="Senior Associate Dental Surgeon">Senior Associate Dental Surgeon (OPD Duty)</option>
+              <option value="Any Available Specialist (Earliest Slot)">Any Available Specialist (Earliest Slot)</option>
+            </select>
+          </div>
+
+          <!-- DENTAL ISSUE / CONCERN -->
+          <div>
+            <label for="dentalIssue" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Dental Issue / Reason for Visit *
+            </label>
+            <select
+              id="dentalIssue"
+              name="dentalIssue"
+              required
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-slate-50/50"
+            >
+              <option value="Severe Toothache / Pain Relief">Severe Toothache / Pain Relief</option>
+              <option value="Root Canal Treatment (Single Sitting RCT)">Root Canal Treatment (Single Sitting RCT)</option>
+              <option value="Dental Implants & Fixed Crown">Dental Implants & Fixed Crown</option>
+              <option value="Teeth Cleaning & Polishing (Scaling)">Teeth Cleaning & Polishing (Scaling)</option>
+              <option value="Teeth Whitening & Smile Makeover">Teeth Whitening & Smile Makeover</option>
+              <option value="Braces & Clear Aligners Consultation">Braces & Clear Aligners Consultation</option>
+              <option value="Tooth Extraction / Wisdom Tooth Removal">Tooth Extraction / Wisdom Tooth Removal</option>
+              <option value="Routine Dental Checkup & Consultation">Routine Dental Checkup & Consultation</option>
+              <option value="Other Dental Concern">Other Dental Concern</option>
+            </select>
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+          <div class="pt-3">
+            <button
+              type="submit"
+              id="submitBookingBtn"
+              class="w-full py-3.5 px-6 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-[0.99] text-white font-bold text-sm shadow-md shadow-sky-600/20 transition flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span id="btnText">Confirm Appointment & Dispatch Alerts 🚀</span>
+            </button>
+            <p class="text-center text-[11px] text-slate-400 mt-2">
+              🔒 Form automatically dispatches EmailJS to <strong>rinkuvirk54@gmail.com</strong> and WhatsApp to <strong>+91 8430033333</strong>.
+            </p>
+          </div>
+        </form>
+
+        <!-- BOOKING CONFIRMATION MODAL / RESULT CARD -->
+        <div id="confirmationCard" class="hidden mt-6 p-5 rounded-2xl bg-emerald-50 border border-emerald-200">
+          <div class="flex items-start gap-3">
+            <div class="text-2xl">🎉</div>
+            <div class="flex-1">
+              <h4 class="text-sm font-bold text-emerald-950">Appointment Request Received!</h4>
+              <p class="text-xs text-emerald-800 mt-1" id="confirmationSummary"></p>
+              
+              <div class="mt-4 flex flex-wrap gap-2">
+                <a
+                  id="directWaBtn"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow-sm"
+                >
+                  💬 Open WhatsApp Alert (+91 8430033333)
+                </a>
+                <a
+                  id="directEmailBtn"
+                  href="#"
+                  class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow-sm"
+                >
+                  ✉️ Email rinkuvirk54@gmail.com
+                </a>
+                <button
+                  type="button"
+                  onclick="resetBookingForm()"
+                  class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-semibold text-xs border border-slate-300"
+                >
+                  🔄 Book Another
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <p>© Dashmesh Dental Clinic, Abohar. All rights reserved.</p>
+    <p class="mt-1 text-slate-400">Pure Client-Side Frontend • Deployable directly to GitHub Pages or Vercel</p>
+  </footer>
+
+  <!-- 
+  ================================================================================
+  ⚙️ FRONTEND JAVASCRIPT: WHATSAPP NOTIFICATION DISPATCH
+  ================================================================================
+  -->
+  <script type="text/javascript">
+    const CLINIC_WHATSAPP_NUMBER = "918430033333"; // +91 8430033333
+
+    // Set default date to today or tomorrow
+    document.addEventListener("DOMContentLoaded", () => {
+      const dateInput = document.getElementById("appointmentDate");
+      if (dateInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+        dateInput.min = today.toISOString().split('T')[0];
+      }
+    });
+
+    /**
+     * FORM SUBMIT HANDLER:
+     * 1. Collects appointment data
+     * 2. Prepares exact WhatsApp message format:
+     *    “New Appointment Request 🦷
+     *     Patient Name: [name]
+     *     Phone: [phone]
+     *     Date: [date]
+     *     Time: [time]
+     *     Doctor: [doctor]
+     *     Issue: [issue]”
+     * 3. Automatically opens https://wa.me/918430033333?text=... via window.open()
+     */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const btn = document.getElementById("submitBookingBtn");
+      const btnText = document.getElementById("btnText");
+
+      const patientName = document.getElementById("patientName").value.trim();
+      let patientPhone = document.getElementById("patientPhone").value.trim();
+      const appointmentDate = document.getElementById("appointmentDate").value;
+      const appointmentTime = document.getElementById("appointmentTime").value;
+      const doctorSelect = document.getElementById("doctorSelect").value;
+      const dentalIssue = document.getElementById("dentalIssue").value;
+
+      if (!patientName || !patientPhone || !appointmentDate || !appointmentTime) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      if (!patientPhone.startsWith('+91')) {
+        patientPhone = '+91 ' + patientPhone.replace(/\D/g, '');
+      }
+
+      // 1. PREPARE EXACT REQUESTED MESSAGE FORMAT
+      const rawMessage = `New Appointment Request 🦷\nPatient Name: ${patientName}\nPhone: ${patientPhone}\nDate: ${appointmentDate}\nTime: ${appointmentTime}\nDoctor: ${doctorSelect}\nIssue: ${dentalIssue}`;
+
+      // 2. ENCODE MESSAGE FOR WHATSAPP API LINK
+      const waUrl = `https://wa.me/${CLINIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(rawMessage)}`;
+
+      // 3. AUTOMATICALLY OPEN WHATSAPP VIA window.open()
+      try {
+        const newWindow = window.open(waUrl, "_blank", "noopener,noreferrer");
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+          // If popup blocker intervened, redirect
+          window.location.href = waUrl;
+        }
+      } catch (err) {
+        window.location.href = waUrl;
+      }
+
+      // 4. SHOW CONFIRMATION ON PAGE
+      btnText.innerText = "Appointment Booked & Alert Sent ✓";
+
+      const confirmationCard = document.getElementById("confirmationCard");
+      const confirmationSummary = document.getElementById("confirmationSummary");
+      const directWaBtn = document.getElementById("directWaBtn");
+
+      confirmationSummary.innerHTML = `
+        <strong>${patientName}</strong>, your appointment request has been prepared for <strong>${appointmentDate} at ${appointmentTime}</strong> with <strong>${doctorSelect}</strong>.<br/><br/>
+        • <strong>WhatsApp Alert:</strong> Pre-filled and sent to <span class="font-mono font-bold">+91 8430033333</span>
+      `;
+
+      directWaBtn.href = waUrl;
+      confirmationCard.classList.remove("hidden");
+      confirmationCard.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function resetBookingForm() {
+      document.getElementById("dentalBookingForm").reset();
+      document.getElementById("confirmationCard").classList.add("hidden");
+      document.getElementById("submitBookingBtn").disabled = false;
+      document.getElementById("btnText").innerText = "Confirm Appointment & Dispatch WhatsApp Alert 🚀";
+      
+      const dateInput = document.getElementById("appointmentDate");
+      if (dateInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+      }
+    }
+  </script>
+</body>
+</html>

@@ -15,16 +15,16 @@ export const CLINIC_INFO = {
   state: 'Punjab',
   pincode: '152116',
   phones: [
-    { label: 'Clinic Primary / Appointments', number: '084300 33333', href: 'tel:08430033333' },
+    { label: 'Clinic Primary / Appointments', number: '+91 8430033333', href: 'tel:+918430033333' },
     { label: 'Dr. Direct / Emergency', number: '94179-28951', href: 'tel:9417928951' },
     { label: 'Clinic Desk 2', number: '9779505055', href: 'tel:9779505055' }
   ],
-  whatsapp: '919779505055',
-  whatsappRaw: '09779505055',
-  whatsappDisplay: '+91 9779505055',
-  email: 'clinic4@gmail.com',
-  notificationEmails: ['clinic4@gmail.com', 'rinkuvirk54@gmail.com'],
-  notificationEmail: 'clinic4@gmail.com, rinkuvirk54@gmail.com',
+  whatsapp: '918430033333',
+  whatsappRaw: '8430033333',
+  whatsappDisplay: '+91 8430033333',
+  email: 'rinkuvirk54@gmail.com',
+  notificationEmails: ['rinkuvirk54@gmail.com'],
+  notificationEmail: 'rinkuvirk54@gmail.com',
   workingHours: [
     { day: 'Monday – Saturday', hours: '9:00 AM – 2:00 PM & 4:30 PM – 8:30 PM', status: 'Open' },
     { day: 'Sunday', hours: '9:30 AM – 2:00 PM (Emergency & By Appointment)', status: 'Morning Only' }
