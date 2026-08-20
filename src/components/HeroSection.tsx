@@ -138,7 +138,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       <Stethoscope className="w-5 h-5" />
                     </div>
                     <div>
-                      <h2 className="text-sm font-bold text-slate-900">Dr. Gurmeet Singh</h2>
+                      <h2 className="text-sm font-bold text-slate-900">Dr. Gurpreet Singh</h2>
                       <p className="text-[11px] text-slate-500">BDS, MDS • 16+ Years Exp.</p>
                     </div>
                   </div>

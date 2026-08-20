@@ -540,7 +540,7 @@ export const InteractiveBookingChatbot: React.FC<InteractiveBookingChatbotProps>
         age: 30,
         gender: 'Not Specified',
         service: data.reasonForVisit,
-        doctor: 'Dr. Gurmeet Singh (BDS, MDS)',
+        doctor: 'Dr. Gurpreet Singh (BDS, MDS)',
         date: data.preferredDate,
         time: data.preferredTime,
         tokenNo: 5,

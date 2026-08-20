@@ -6,13 +6,12 @@ import { OpdSlipGenerator } from './components/OpdSlipGenerator';
 import { BookTokenSection } from './components/BookTokenSection';
 import { ReviewsSection } from './components/ReviewsSection';
 import { MapAndDirections } from './components/MapAndDirections';
-import { ClinicGallery } from './components/ClinicGallery';
 import { AiDentalAssistant } from './components/AiDentalAssistant';
 import { CallActionSheet } from './components/CallActionSheet';
 import { IosBottomDock } from './components/IosBottomDock';
 import { Footer } from './components/Footer';
 import { DOCTORS, CLINIC_INFO, SERVICES } from './data/clinicData';
-import { Stethoscope, Sparkles, Star, Calendar, ArrowRight, ShieldCheck, Phone, CheckCircle, MapPin, Camera } from 'lucide-react';
+import { Stethoscope, Sparkles, Star, Calendar, ArrowRight, ShieldCheck, Phone, CheckCircle, MapPin } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
@@ -212,9 +211,6 @@ export default function App() {
                 </div>
               </div>
             </section>
-
-            {/* Photos & Clinic Tour Section */}
-            <ClinicGallery />
 
             {/* Map & Directions Preview */}
             <MapAndDirections

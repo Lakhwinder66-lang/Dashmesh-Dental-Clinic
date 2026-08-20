@@ -81,7 +81,7 @@ export const CallActionSheet: React.FC<CallActionSheetProps> = ({ isOpen, onClos
                   94179-28951
                 </span>
                 <span className="text-[11px] text-sky-800">
-                  Dr. Gurmeet Singh (Chief Surgeon)
+                  Dr. Gurpreet Singh (Chief Surgeon)
                 </span>
               </div>
             </div>

@@ -73,7 +73,7 @@ export const OpdSlipGenerator: React.FC = () => {
       14: 'Crown', // Tooth 26
     },
     selectedTeeth: [30, 14],
-    doctorName: 'Dr. Gurmeet Singh (BDS, MDS)'
+    doctorName: 'Dr. Gurpreet Singh (BDS, MDS)'
   });
 
   const [activeTooth, setActiveTooth] = useState<number | null>(30);

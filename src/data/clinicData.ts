@@ -1,8 +1,8 @@
 import { DentalService, Review, Doctor } from '../types';
-import clinicExteriorImg from '../assets/images/dashmesh_clinic_exterior_1787224642517.jpg';
-import clinicInteriorImg from '../assets/images/dashmesh_clinic_interior_1787224660959.jpg';
-import waitingLoungeImg from '../assets/images/dashmesh_waiting_lounge_1787224680804.jpg';
-import entranceSignImg from '../assets/images/dashmesh_entrance_sign_1787224701969.jpg';
+import clinicExteriorImg from '../assets/images/dashmesh_front_entrance_1787226930308.jpg';
+import clinicInteriorImg from '../assets/images/dashmesh_reception_operatory_1787226899709.jpg';
+import waitingLoungeImg from '../assets/images/dashmesh_waiting_sofa_1787226913805.jpg';
+import entranceSignImg from '../assets/images/dashmesh_signboard_exterior_1787226884636.jpg';
 
 export const CLINIC_INFO = {
   name: 'Dashmesh Dental Clinic',
@@ -44,7 +44,7 @@ export const CLINIC_INFO = {
 
 export const DOCTORS: Doctor[] = [
   {
-    name: 'Dr. Gurmeet Singh',
+    name: 'Dr. Gurpreet Singh',
     qualification: 'BDS, MDS (Oral & Maxillofacial / Endodontics)',
     role: 'Chief Dental Surgeon & Implantologist',
     experience: '16+ Years Experience',

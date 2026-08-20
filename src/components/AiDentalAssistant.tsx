@@ -312,7 +312,7 @@ export const AiDentalAssistant: React.FC<AiDentalAssistantProps> = ({
                 Need In-Person Dental Examination?
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                AI advice cannot substitute for an intraoral inspection and digital RVG dental X-ray by Dr. Gurmeet Singh.
+                AI advice cannot substitute for an intraoral inspection and digital RVG dental X-ray by Dr. Gurpreet Singh.
               </p>
 
               <div className="space-y-2 pt-2">
