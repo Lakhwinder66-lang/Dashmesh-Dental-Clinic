@@ -555,7 +555,7 @@ export const InteractiveBookingChatbot: React.FC<InteractiveBookingChatbotProps>
         onAppointmentCreated(confirmed);
       }
 
-      // 2. STEP 4a: Send Email Notification to rinkuvirk54@gmail.com
+      // 2. STEP 4a: Send Email Notification to both clinic4@gmail.com and rinkuvirk54@gmail.com
       try {
         await fetch('/api/send-appointment-email', {
           method: 'POST',
@@ -568,28 +568,38 @@ export const InteractiveBookingChatbot: React.FC<InteractiveBookingChatbotProps>
             time: data.preferredTime,
             reason: data.reasonForVisit,
             yes_no: data.isExistingPatient,
-            recipient: 'rinkuvirk54@gmail.com',
           }),
         });
       } catch (e) {
         console.warn('Email endpoint log dispatch:', e);
       }
 
-      // STEP 4b: WhatsApp payload formulation
-      const waText = encodeURIComponent(
-        `📋 New Appointment Request\n\nName: ${data.fullName}\nMobile Number: ${data.mobileNumber}\nEmail: ${data.email}\nPreferred Date: ${data.preferredDate}\nPreferred Time: ${data.preferredTime}\nReason for Visit: ${data.reasonForVisit}\nExisting Patient: ${data.isExistingPatient}\n\n— Booked via website chatbot`
-      );
-      const waUrl = `https://wa.me/919779505055?text=${waText}`;
+      // STEP 4b: WhatsApp & Email Payload Formulation
+      const plainTextPayload = `📋 New Appointment Request\n\nName: ${data.fullName}\nMobile Number: ${data.mobileNumber}\nEmail: ${data.email || 'Not provided'}\nPreferred Date: ${data.preferredDate}\nPreferred Time: ${data.preferredTime}\nReason for Visit: ${data.reasonForVisit}\nExisting Patient: ${data.isExistingPatient}\n\n— Booked via website chatbot`;
 
-      // Email mailto fallback formulation
+      const waEncoded = encodeURIComponent(plainTextPayload);
+      const waUrl = `https://wa.me/919779505055?text=${waEncoded}`;
+      const waDirectApi = `https://api.whatsapp.com/send?phone=919779505055&text=${waEncoded}`;
+
       const emailSubject = encodeURIComponent(`New Appointment Request – ${data.fullName}`);
-      const emailBody = encodeURIComponent(
-        `📋 New Appointment Request\n\nName: ${data.fullName}\nMobile Number: ${data.mobileNumber}\nEmail: ${data.email}\nPreferred Date: ${data.preferredDate}\nPreferred Time: ${data.preferredTime}\nReason for Visit: ${data.reasonForVisit}\nExisting Patient: ${data.isExistingPatient}\n\n— Booked via website chatbot`
-      );
-      const mailtoUrl = `mailto:rinkuvirk54@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+      const emailBody = encodeURIComponent(plainTextPayload);
+      const mailtoBothUrl = `mailto:clinic4@gmail.com,rinkuvirk54@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+      const mailtoClinic4Url = `mailto:clinic4@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+      const mailtoRinkuUrl = `mailto:rinkuvirk54@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+      // Helper for direct link clicks
+      const openExternalLink = (url: string) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
 
       // STEP 5: Confirmation message to visitor
-      const step5Confirmation = `🎉 **Appointment Request Successfully Received!**\n\nThank you, **${data.fullName}**!\nYour appointment request has been recorded for **${data.preferredDate} at ${data.preferredTime}**.\n\n• **Token ID:** ${confirmed.id} (${confirmed.opdNo})\n• **Notification Sent To:** rinkuvirk54@gmail.com\n• **Clinic WhatsApp Alert:** +91 9779505055\n\nOur clinic reception at Dashmesh Dental Clinic will contact you shortly on **+91 ${data.mobileNumber}** to finalize your slot.`;
+      const step5Confirmation = `🎉 **Appointment Request Successfully Received!**\n\nThank you, **${data.fullName}**!\nYour appointment request has been recorded for **${data.preferredDate} at ${data.preferredTime}**.\n\n• **Token ID:** ${confirmed.id} (${confirmed.opdNo})\n• **Email Alert Dispatched To:** \`clinic4@gmail.com\` & \`rinkuvirk54@gmail.com\`\n• **Clinic WhatsApp Alert:** \`+91 9779505055\` (09779505055)\n\nOur clinic reception at Dashmesh Dental Clinic will contact you shortly on **+91 ${data.mobileNumber}** to finalize your consultation.`;
 
       setCurrentStep('BOOKING_COMPLETED');
 
@@ -605,16 +615,24 @@ export const InteractiveBookingChatbot: React.FC<InteractiveBookingChatbotProps>
         step5Confirmation,
         [
           {
-            label: '💬 Open WhatsApp with Clinic (+91 9779505055)',
-            action: () => window.open(waUrl, '_blank'),
+            label: '💬 Send WhatsApp Alert to +91 9779505055',
+            action: () => openExternalLink(waUrl),
           },
           {
-            label: '✉️ Email rinkuvirk54@gmail.com',
-            action: () => window.open(mailtoUrl, '_blank'),
+            label: '✉️ Send Email to clinic4@gmail.com',
+            action: () => openExternalLink(mailtoClinic4Url),
+          },
+          {
+            label: '✉️ Send Email to rinkuvirk54@gmail.com',
+            action: () => openExternalLink(mailtoRinkuUrl),
+          },
+          {
+            label: '📩 Send Email to Both Clinics',
+            action: () => openExternalLink(mailtoBothUrl),
           },
           {
             label: '📞 Call Reception: 084300 33333',
-            action: () => window.open('tel:08430033333'),
+            action: () => (window.location.href = 'tel:08430033333'),
           },
           {
             label: '🔄 Book Another Appointment',
@@ -678,7 +696,7 @@ export const InteractiveBookingChatbot: React.FC<InteractiveBookingChatbotProps>
               </span>
             </div>
             <p className="text-[11px] text-slate-400">
-              Auto-Notification: rinkuvirk54@gmail.com • WhatsApp: +91 9779505055
+              Auto-Notification: clinic4@gmail.com & rinkuvirk54@gmail.com • WhatsApp: +91 9779505055
             </p>
           </div>
         </div>

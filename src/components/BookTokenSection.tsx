@@ -109,7 +109,7 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
         onAppointmentCreated(appt);
       }
 
-      // Send Email notification to rinkuvirk54@gmail.com
+      // Send Email notification to both clinic4@gmail.com & rinkuvirk54@gmail.com
       try {
         await fetch('/api/send-appointment-email', {
           method: 'POST',
@@ -122,7 +122,6 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
             time,
             reason: service,
             yes_no: isExistingPatient,
-            recipient: 'rinkuvirk54@gmail.com'
           }),
         });
       } catch (errEmail) {
@@ -156,7 +155,7 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
             Book Appointment & Token Number
           </h2>
           <p className="text-sm text-slate-500 mt-1 max-w-xl">
-            Confirm your appointment with Dashmesh Dental Clinic (Abohar). Instant notifications dispatched to rinkuvirk54@gmail.com and WhatsApp.
+            Confirm your appointment with Dashmesh Dental Clinic (Abohar). Instant notifications dispatched to clinic4@gmail.com, rinkuvirk54@gmail.com, and WhatsApp (+91 9779505055).
           </p>
         </div>
 
@@ -492,27 +491,55 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
                   <a
                     id="form-confirmed-wa-btn"
                     href={`https://wa.me/919779505055?text=${encodeURIComponent(
-                      `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
+                      `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email || 'Not provided'}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                   >
                     <MessageSquare className="w-4 h-4" />
-                    <span>Open WhatsApp Message (+91 9779505055)</span>
+                    <span>Send WhatsApp Alert (+91 9779505055)</span>
                   </a>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <a
+                      id="form-confirmed-email-clinic4-btn"
+                      href={`mailto:clinic4@gmail.com?subject=${encodeURIComponent(
+                        `New Appointment Request – ${confirmedAppt.patientName}`
+                      )}&body=${encodeURIComponent(
+                        `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email || 'Not provided'}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
+                      )}`}
+                      className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer text-center"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                      <span className="truncate">Email clinic4@gmail.com</span>
+                    </a>
+
+                    <a
+                      id="form-confirmed-email-rinku-btn"
+                      href={`mailto:rinkuvirk54@gmail.com?subject=${encodeURIComponent(
+                        `New Appointment Request – ${confirmedAppt.patientName}`
+                      )}&body=${encodeURIComponent(
+                        `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email || 'Not provided'}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
+                      )}`}
+                      className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer text-center"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                      <span className="truncate">Email rinkuvirk54@gmail.com</span>
+                    </a>
+                  </div>
+
                   <a
-                    id="form-confirmed-email-btn"
-                    href={`mailto:rinkuvirk54@gmail.com?subject=${encodeURIComponent(
+                    id="form-confirmed-email-both-btn"
+                    href={`mailto:clinic4@gmail.com,rinkuvirk54@gmail.com?subject=${encodeURIComponent(
                       `New Appointment Request – ${confirmedAppt.patientName}`
                     )}&body=${encodeURIComponent(
-                      `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
+                      `📋 New Appointment Request\n\nName: ${confirmedAppt.patientName}\nMobile Number: ${confirmedAppt.phone}\nEmail: ${confirmedAppt.email || 'Not provided'}\nPreferred Date: ${confirmedAppt.date}\nPreferred Time: ${confirmedAppt.time}\nReason for Visit: ${confirmedAppt.service}\nExisting Patient: ${confirmedAppt.existingPatient || 'No'}\n\n— Booked via website chatbot`
                     )}`}
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-1.5 border border-slate-300/80 cursor-pointer"
                   >
-                    <Mail className="w-4 h-4 text-rose-400" />
-                    <span>Email rinkuvirk54@gmail.com</span>
+                    <Mail className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>Email Both Clinic Addresses</span>
                   </a>
                 </div>
 
@@ -571,7 +598,7 @@ export const BookTokenSection: React.FC<BookTokenSectionProps> = ({
                     </div>
                     <div>
                       <span className="font-bold text-slate-800 block">Instant Email & WhatsApp Alert</span>
-                      <p className="text-slate-500 mt-0.5">Dispatch notification directly to rinkuvirk54@gmail.com and +91 9779505055.</p>
+                      <p className="text-slate-500 mt-0.5">Dispatches notification directly to clinic4@gmail.com, rinkuvirk54@gmail.com and WhatsApp +91 9779505055.</p>
                     </div>
                   </div>
 

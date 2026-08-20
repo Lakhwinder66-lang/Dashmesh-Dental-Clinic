@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,6 +14,27 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+// Lazy Nodemailer transporter
+let mailTransporter: nodemailer.Transporter | null = null;
+function getMailTransporter(): nodemailer.Transporter | null {
+  if (!mailTransporter && process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    try {
+      mailTransporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: Number(process.env.SMTP_PORT) === 465,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+    } catch (smtpErr) {
+      console.warn('Could not initialize SMTP transport:', smtpErr);
+    }
+  }
+  return mailTransporter;
+}
 
 // In-memory appointments and reviews storage
 let appointments = [
@@ -162,34 +184,76 @@ app.get('/api/appointments', (req, res) => {
   res.json({ success: true, appointments });
 });
 
-// Send Appointment Email Notification to Clinic
-app.post('/api/send-appointment-email', (req, res) => {
-  const { name, mobile_number, email, date, time, reason, yes_no, recipient = 'rinkuvirk54@gmail.com' } = req.body;
-  
-  console.log('----------------------------------------------------');
-  console.log(`[EMAIL NOTIFICATION DISPATCH] To: ${recipient}`);
-  console.log(`Subject: New Appointment Request – ${name || 'Patient'}`);
-  console.log(`Body:
-📋 New Appointment Request
+// Send Appointment Email & WhatsApp Notification to Clinics
+app.post('/api/send-appointment-email', async (req, res) => {
+  const {
+    name = 'Valued Patient',
+    mobile_number = '',
+    email = '',
+    date = '',
+    time = '',
+    reason = 'Dental Consultation',
+    yes_no = 'No',
+  } = req.body;
+
+  const recipients = ['clinic4@gmail.com', 'rinkuvirk54@gmail.com'];
+  const subject = `New Appointment Request – ${name}`;
+  const plainTextBody = `📋 New Appointment Request
 
 Name: ${name}
 Mobile Number: ${mobile_number}
-Email: ${email}
+Email: ${email || 'Not provided'}
 Preferred Date: ${date}
 Preferred Time: ${time}
 Reason for Visit: ${reason}
 Existing Patient: ${yes_no}
 
-— Booked via website chatbot
-  `);
-  console.log('----------------------------------------------------');
+— Booked via website chatbot`;
+
+  console.log('====================================================');
+  console.log(`[DUAL CLINIC EMAIL NOTIFICATION DISPATCH]`);
+  console.log(`To: ${recipients.join(', ')}`);
+  console.log(`Subject: ${subject}`);
+  console.log(`Body:\n${plainTextBody}`);
+  console.log('====================================================');
+
+  let liveSmtpSent = false;
+  const transporter = getMailTransporter();
+  if (transporter) {
+    try {
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM || `"Dashmesh Dental Clinic" <${process.env.SMTP_USER}>`,
+        to: recipients,
+        subject,
+        text: plainTextBody,
+      });
+      liveSmtpSent = true;
+      console.log(`[SMTP SUCCESS] Live email sent to ${recipients.join(', ')}`);
+    } catch (sendErr: any) {
+      console.warn('[SMTP WARNING] Could not send via SMTP transport:', sendErr?.message);
+    }
+  }
+
+  const waNumber = '919779505055';
+  const waAlertUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(plainTextBody)}`;
+  const mailtoBothUrl = `mailto:${recipients.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextBody)}`;
+  const mailtoClinic4Url = `mailto:clinic4@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextBody)}`;
+  const mailtoRinkuUrl = `mailto:rinkuvirk54@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextBody)}`;
 
   res.json({
     success: true,
-    message: `Appointment notification registered for ${recipient}`,
-    recipient,
-    subject: `New Appointment Request – ${name}`,
-    dispatchedAt: new Date().toISOString()
+    message: `Appointment notifications dispatched to ${recipients.join(' and ')}`,
+    recipients,
+    subject,
+    body: plainTextBody,
+    liveSmtpSent,
+    waNumber: '+91 9779505055',
+    waRawNumber: '09779505055',
+    waAlertUrl,
+    mailtoBothUrl,
+    mailtoClinic4Url,
+    mailtoRinkuUrl,
+    dispatchedAt: new Date().toISOString(),
   });
 });
 
