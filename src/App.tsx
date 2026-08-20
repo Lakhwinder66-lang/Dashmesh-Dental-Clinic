@@ -102,15 +102,8 @@ export default function App() {
                             <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                               {doc.name}
                             </h3>
-                            <p className="text-xs sm:text-sm font-semibold text-sky-700">
-                              {doc.qualification}
-                            </p>
                           </div>
                         </div>
-
-                        <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
-                          {doc.experience}
-                        </span>
                       </div>
 
                       <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
