@@ -139,7 +139,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     </div>
                     <div>
                       <h2 className="text-sm font-bold text-slate-900">Dr. Gurpreet Singh</h2>
-                      <p className="text-[11px] text-slate-500">BDS, MDS • 16+ Years Exp.</p>
                     </div>
                   </div>
                   <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full border border-emerald-200">
